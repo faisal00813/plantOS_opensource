@@ -55,10 +55,7 @@ class AtlasI2C:
                 return "pH: " + ''.join(char_list)     # convert the char list to a string and returns it
             elif self.current_addr == 100: # EC sensor
                 temp_string=''.join(char_list)
-                print 'EC: ' + string.split(temp_string, ",")[0]
-                print 'TDS: ' + string.split(temp_string, ",")[1]
-                print 'Salinity: ' + string.split(temp_string, ",")[2]
-                return "Gravity: " + string.split(temp_string, ",")[3]     # convert the char list to a string and returns it
+                return "EC: " + string.split(temp_string, ",")[0] + "\nTDS: " + string.split(temp_string, ",")[1] + "\nSalinity: " + string.split(temp_string, ",")[2] + "\nGravity: " + string.split(temp_string, ",")[3]     # convert the char list to a string and returns it
             elif self.current_addr == 102: # RTD sensor
                 return "Soluble Temperature: " + ''.join(char_list) + " C"     # convert the char list to a string and returns it
         else:
