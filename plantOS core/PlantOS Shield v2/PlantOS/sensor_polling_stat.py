@@ -132,12 +132,13 @@ class BH1750():
 
 
 def main():
-    device = AtlasI2C() 	# creates the I2C port object, specify the address or bus if necessary
-    device1 = BH1750()
-    device2 = Adafruit_DHT.DHT22
-    pin = 24 # DHT22 data pin
-    gcp_timer = 5 * 60 # 5 minutes for GCP Pub/Sub
-    poll_timer = 10 # 10 seconds per sensor reading
+    # Sensor Objects Definition
+    device = AtlasI2C()             # Atlas Scientific sensors (ph,ec, rtd)
+    device1 = BH1750()              # BH1750 light sensor
+    device2 = Adafruit_DHT.DHT22    # DHT22 temperature and humidity sensor
+    pin = 24                        # DHT22 data pin
+    gcp_timer = 1 * 60              # 5 minutes for GCP Pub/Sub
+    poll_timer = 10                 # 10 seconds per sensor reading
     
     
     # initialize sensors (remove first light intensity error)
@@ -146,12 +147,11 @@ def main():
     stat_dht22_temp = [float(temperature)] * ((gcp_timer/poll_timer)-1) # initialize local statistic
     stat_dht22_humid = [float(humidity)] * ((gcp_timer/poll_timer)-1) # initialize local statistic
     
-    device.set_i2c_address(99)
-    temp = device.query("R")    # (99 pH)
+    device.set_i2c_address(99)  # (99 pH)
+    temp = device.query("R")
     stat_atlas_ph = [float(string.split(temp, ": ")[1])] * ((gcp_timer/poll_timer)-1) # initialize local statistic
-    
-    device.set_i2c_address(100)
-    temp = device.query("R")    # (100 EC)
+    device.set_i2c_address(100) # (100 EC)
+    temp = device.query("R")
     temp1 = string.split(temp, ": ")[1] #EC
     stat_atlas_ec = [float(string.split(temp1, "\n")[0])] * ((gcp_timer/poll_timer)-1) # initialize local statistic
     temp1 = string.split(temp, ": ")[2] #TDS
@@ -160,12 +160,10 @@ def main():
     stat_atlas_sal = [float(string.split(temp1, "\n")[0])] * ((gcp_timer/poll_timer)-1) # initialize local statistic
     temp1 = string.split(temp, ": ")[4] #Gravity
     stat_atlas_gra = [float(string.split(temp1, "\n")[0])] * ((gcp_timer/poll_timer)-1) # initialize local statistic
-    
-    device.set_i2c_address(102)
-    temp = device.query("R")    # (102 RTD)
+    device.set_i2c_address(102) # (102 RTD)
+    temp = device.query("R")
     temp = string.split(temp, ": ")[1]
     stat_atlas_rtd = [float(string.split(temp, " C")[0])] * ((gcp_timer/poll_timer)-1) # initialize local statistic
-    
     stat_bh1750_lux = [float(str(device1.readLight()))] * ((gcp_timer/poll_timer)-1) # initialize local statistic
     
     # set up numpy arrays
@@ -184,84 +182,122 @@ def main():
         input = raw_input("Enter command: ")
                 
         if input.upper().startswith("LIST_ADDR"):
-            devices = device.list_i2c_devices()
+            devices = device.list_i2c_devices() # obtain I2C devices address that are connected to the shield
             for i in range(len (devices)):
                 print devices[i]
                 
         # continuous polling command automatically polls the board
         elif input.upper().startswith("POLL"):
-            #delaytime = poll_timer
+            # Setup sensor polling timer and GCP PubSub timer
+            poll_time = time.time()
+            gcp_time = time.time()
             try:
                 while True:
-                    humidity, temperature = Adafruit_DHT.read_retry(device2, pin) # DHT22
-                    if humidity is not None and temperature is not None:
-                        print('Ambient Temperature: {0:0.1f} C  \nAmbient Humidity: {1:0.1f} %'.format(temperature, humidity))
-                        stat_dht22_temp = numpy.append(stat_dht22_temp, float(temperature)) #local statistic
-                        stat_dht22_humid = numpy.append(stat_dht22_humid, float(humidity)) #local statistic
+                    # Sensor Polling Task
+                    if (time.time() - poll_time) >= poll_timer:
+                        # reset sensor poll timer
+                        poll_time = time.time()
+                        humidity = None
+                        temperature = None
+                        humidity, temperature = Adafruit_DHT.read_retry(device2, pin) # DHT22
+                        if humidity is not None and temperature is not None:
+                            print('Ambient Temperature: {0:0.1f} C  \nAmbient Humidity: {1:0.1f} %'.format(temperature, humidity))
+                            stat_dht22_temp = numpy.append(stat_dht22_temp, float(temperature)) #local statistic
+                            stat_dht22_humid = numpy.append(stat_dht22_humid, float(humidity)) #local statistic
+                        else:
+                            stat_dht22_temp = numpy.median(stat_dht22_temp)
+                            stat_dht22_humid = numpy.median(stat_dht22_humid)
+                        
+                        device.set_i2c_address(99)  # (99 pH)
+                        temp = device.query("R")
+                        print(temp)
+                        stat_temporary = None
+                        stat_temporary = numpy.append(stat_atlas_ph, float(string.split(temp, ": ")[1]))    #local statistic
+                        if stat_temporary is not None:
+                            stat_atlas_ph = stat_temporary
+                        else:
+                            stat_atlas_ph = numpy.median(stat_atlas_ph)
+                        device.set_i2c_address(100) # (100 EC)
+                        temp = device.query("R")
+                        print(temp)
+                        temp1 = string.split(temp, ": ")[1] #get EC
+                        stat_temporary = None
+                        stat_temporary = numpy.append(stat_atlas_ec, float(string.split(temp1, "\n")[0])) #local statistic
+                        if stat_temporary is not None:
+                            stat_atlas_ec = stat_temporary
+                        else:
+                            stat_atlas_ec = numpy.median(stat_atlas_ec)
+                        temp1 = string.split(temp, ": ")[2] #get TDS
+                        stat_temporary = None
+                        stat_temporary = numpy.append(stat_atlas_tds, float(string.split(temp1, "\n")[0])) #local statistic
+                        if stat_temporary is not None:
+                            stat_atlas_tds = stat_temporary
+                        else:
+                            stat_atlas_tds = numpy.median(stat_atlas_tds)
+                        temp1 = string.split(temp, ": ")[3] #get Salinity
+                        stat_temporary = None
+                        stat_temporary = numpy.append(stat_atlas_sal, float(string.split(temp1, "\n")[0])) #local statistic
+                        if stat_temporary is not None:
+                            stat_atlas_sal = stat_temporary
+                        else:
+                            stat_atlas_sal = numpy.median(stat_atlas_sal)
+                        temp1 = string.split(temp, ": ")[4] #get Gravity
+                        stat_temporary = None
+                        stat_temporary = numpy.append(stat_atlas_gra, float(string.split(temp1, "\n")[0])) #local statistic
+                        if stat_temporary is not None:
+                            stat_atlas_gra = stat_temporary
+                        else:
+                            stat_atlas_gra = numpy.median(stat_atlas_gra)
+                        device.set_i2c_address(102) # (102 RTD)
+                        temp = device.query("R")
+                        print(temp)
+                        temp = string.split(temp, ": ")[1]
+                        stat_temporary = None
+                        stat_temporary = numpy.append(stat_atlas_rtd, float(string.split(temp, " C")[0])) #local statistic
+                        if stat_temporary is not None:
+                            stat_atlas_rtd = stat_temporary
+                        else:
+                            stat_atlas_rtd = numpy.median(stat_atlas_rtd)
+                        temp = str(device1.readLight()) # BH1750
+                        print 'Light Intensity: ' + temp + ' lx'
+                        if temp is not None:
+                            stat_bh1750_lux = numpy.append(stat_bh1750_lux, float(str(device1.readLight()))) #local statistic
+                        else:
+                            stat_bh1750_lux = numpy.median(stat_bh1750_lux)
+                        # local statistic routine
+                        # compute mean
+                        print 'Local Statistic at ' + (time.strftime('%d/%m/%Y %H:%M:%S'))
+                        print '[Average] Ambient Temperature: ' + str(numpy.mean(stat_dht22_temp)) + ' C'
+                        print '[Average] Ambient Humidity: ' + str(numpy.mean(stat_dht22_humid)) + ' %'
+                        print '[Average] pH: ' + str(numpy.mean(stat_atlas_ph))
+                        print '[Average] EC: ' + str(numpy.mean(stat_atlas_ec))
+                        print '[Average] TDS: ' + str(numpy.mean(stat_atlas_tds))
+                        print '[Average] Salinity: ' + str(numpy.mean(stat_atlas_sal))
+                        print '[Average] Gravity: ' + str(numpy.mean(stat_atlas_gra))
+                        print '[Average] RTD: ' + str(numpy.mean(stat_atlas_rtd))
+                        print '[Average] Light Intensity: ' + str(numpy.mean(stat_bh1750_lux)) + ' lx'
+                        # compute median
+                        print '[Median] Ambient Temperature: ' + str(numpy.median(stat_dht22_temp)) + ' C'
+                        print '[Median] Ambient Humidity: ' + str(numpy.median(stat_dht22_humid)) + ' %'
+                        print '[Median] pH: ' + str(numpy.median(stat_atlas_ph))
+                        print '[Median] EC: ' + str(numpy.median(stat_atlas_ec))
+                        print '[Median] TDS: ' + str(numpy.median(stat_atlas_tds))
+                        print '[Median] Salinity: ' + str(numpy.median(stat_atlas_sal))
+                        print '[Median] Gravity: ' + str(numpy.median(stat_atlas_gra))
+                        print '[Median] RTD: ' + str(numpy.median(stat_atlas_rtd))
+                        print '[Median] Light Intensity: ' + str(numpy.median(stat_bh1750_lux)) + ' lx'
+                        # truncate local statistic arrays
+                        stat_dht22_temp = numpy.delete(stat_dht22_temp, 0)
+                        stat_dht22_humid = numpy.delete(stat_dht22_humid, 0)
+                        stat_atlas_ph = numpy.delete(stat_atlas_ph, 0)
+                        stat_atlas_ec = numpy.delete(stat_atlas_ec, 0)
+                        stat_atlas_tds = numpy.delete(stat_atlas_tds, 0)
+                        stat_atlas_sal = numpy.delete(stat_atlas_sal, 0)
+                        stat_atlas_gra = numpy.delete(stat_atlas_gra, 0)
+                        stat_atlas_rtd = numpy.delete(stat_atlas_rtd, 0)
+                        stat_bh1750_lux = numpy.delete(stat_bh1750_lux, 0)
                     else:
-                        print('Failed to get reading DHT22. Try again!')
-                    
-                    device.set_i2c_address(99)  # (99 pH)
-                    temp = device.query("R")
-                    print(temp)
-                    stat_atlas_ph = numpy.append(stat_atlas_ph, float(string.split(temp, ": ")[1])) #local statistic
-                    
-                    device.set_i2c_address(100) # (100 EC)
-                    temp = device.query("R")
-                    print(temp)
-                    temp1 = string.split(temp, ": ")[1] #get EC
-                    stat_atlas_ec = numpy.append(stat_atlas_ec, float(string.split(temp1, "\n")[0])) #local statistic
-                    temp1 = string.split(temp, ": ")[2] #get TDS
-                    stat_atlas_tds = numpy.append(stat_atlas_tds, float(string.split(temp1, "\n")[0])) #local statistic
-                    temp1 = string.split(temp, ": ")[3] #get Salinity
-                    stat_atlas_sal = numpy.append(stat_atlas_sal, float(string.split(temp1, "\n")[0])) #local statistic
-                    temp1 = string.split(temp, ": ")[4] #get Gravity
-                    stat_atlas_gra = numpy.append(stat_atlas_gra, float(string.split(temp1, "\n")[0])) #local statistic
-                    
-                    device.set_i2c_address(102) # (102 RTD)
-                    temp = device.query("R")
-                    print(temp)
-                    temp = string.split(temp, ": ")[1]
-                    stat_atlas_rtd = numpy.append(stat_atlas_rtd, float(string.split(temp, " C")[0])) #local statistic
-                    
-                    temp = str(device1.readLight()) # BH1750
-                    print 'Light Intensity: ' + temp + ' lx'
-                    stat_bh1750_lux = numpy.append(stat_bh1750_lux, float(str(device1.readLight()))) #local statistic
-                    
-                    # local statistic routine
-                    # compute mean
-                    print 'Local Statistic at ' + (time.strftime('%d/%m/%Y %H:%M:%S'))
-                    print '[Average] Ambient Temperature: ' + str(numpy.mean(stat_dht22_temp)) + ' C'
-                    print '[Average] Ambient Humidity: ' + str(numpy.mean(stat_dht22_humid)) + ' %'
-                    print '[Average] pH: ' + str(numpy.mean(stat_atlas_ph))
-                    print '[Average] EC: ' + str(numpy.mean(stat_atlas_ec))
-                    print '[Average] TDS: ' + str(numpy.mean(stat_atlas_tds))
-                    print '[Average] Salinity: ' + str(numpy.mean(stat_atlas_sal))
-                    print '[Average] Gravity: ' + str(numpy.mean(stat_atlas_gra))
-                    print '[Average] RTD: ' + str(numpy.mean(stat_atlas_rtd))
-                    print '[Average] Light Intensity: ' + str(numpy.mean(stat_bh1750_lux)) + ' lx'
-                    # compute median
-                    print '[Median] Ambient Temperature: ' + str(numpy.median(stat_dht22_temp)) + ' C'
-                    print '[Median] Ambient Humidity: ' + str(numpy.median(stat_dht22_humid)) + ' %'
-                    print '[Median] pH: ' + str(numpy.median(stat_atlas_ph))
-                    print '[Median] EC: ' + str(numpy.median(stat_atlas_ec))
-                    print '[Median] TDS: ' + str(numpy.median(stat_atlas_tds))
-                    print '[Median] Salinity: ' + str(numpy.median(stat_atlas_sal))
-                    print '[Median] Gravity: ' + str(numpy.median(stat_atlas_gra))
-                    print '[Median] RTD: ' + str(numpy.median(stat_atlas_rtd))
-                    print '[Median] Light Intensity: ' + str(numpy.median(stat_bh1750_lux)) + ' lx'
-                    # truncate local statistic arrays
-                    stat_dht22_temp = numpy.delete(stat_dht22_temp, 0)
-                    stat_dht22_humid = numpy.delete(stat_dht22_humid, 0)
-                    stat_atlas_ph = numpy.delete(stat_atlas_ph, 0)
-                    stat_atlas_ec = numpy.delete(stat_atlas_ec, 0)
-                    stat_atlas_tds = numpy.delete(stat_atlas_tds, 0)
-                    stat_atlas_sal = numpy.delete(stat_atlas_sal, 0)
-                    stat_atlas_gra = numpy.delete(stat_atlas_gra, 0)
-                    stat_atlas_rtd = numpy.delete(stat_atlas_rtd, 0)
-                    stat_bh1750_lux = numpy.delete(stat_bh1750_lux, 0)
-                    # end of routine - sleep time
-                    time.sleep(poll_timer - AtlasI2C.long_timeout)
+                        time.sleep(0.50) #sleep 500ms
             except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
                     print("Continuous polling stopped")
                         
