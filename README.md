@@ -34,7 +34,7 @@ Plant-os Google Cloud Platform Processing Engine(DPE) receives streaming data fr
 
 Partners
 ============================
-![MITCityFarm](https://avatars1.githubusercontent.com/u/8797566?v=3&s=200)
+![MITCityFarm](https://cdn-business.discourse.org/uploads/mit/original/1X/47f2561abc542873e69b72315981cb3b31e0f6c5.png)
 <BR>
 MIT City Farm
 
