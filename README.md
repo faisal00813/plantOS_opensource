@@ -29,30 +29,34 @@ Our Plant OS computer comprises of a Raspberry Pi 3 Model B and a Plant OS Shiel
 </ul>
 
 2. NDVI Camera
+
+<img height="100" width="150" src="src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/" />
+<img height="80" width="170" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448a36b8f5b325325c2b7/1499744437443/?format=500w" />
+<BR>
 <img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/?format=500w" />
 <BR>
 
 The NDVI camera utilises inexpensive Raspberry Pi No Infrared camera with Sony IMX219 8-megapixel sensor to generate visual analytics including NDVI and plant phenotype analysis with our own object detection. We have developed our own chip to convert video data over conventional HDMI to extend range.
 
-<img height="180" width="280"
-src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448a36b8f5b325325c2b7/1499744437443/?format=500w" />
-<BR>
 3. Data Processing Engine
 
 Data Processing Engine(DPE) receives streaming data from plantOS computers deployed and processes it through pipelines. Real-Time streaming data runs through the various processing jobs and generates data that is analysed to gain insights on plant growth. DPE is build on Google Cloud Components such as Google Pub/Sub, Dataflow Engine, BigQuery and Google App Engine, to process the data inorder generate timely insights which would be helpful for monitering various factors related to plant growth.
 
 4. App Engine Analytics
 
-App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with MIT Media Lab Open Agriculture Initiative (OpenAg).
-
 <img height="180" width="280" 
 src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/59644426ff7c5099c12c5864/1499743282386/?format=750w" />
 <BR>
+
+App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with MIT Media Lab Open Agriculture Initiative (OpenAg).
 
 Partners
 ============================
 <a href="https://www.media.mit.edu/groups/open-agriculture-openag/overview/"><img height="100" width="380" src="https://cdn-business.discourse.org/uploads/mit/original/1X/47f2561abc542873e69b72315981cb3b31e0f6c5.png" /></a>
 <BR>
 MIT Media Lab Open Agriculture Initiative (OpenAg)
+<a href="https://cloud.google.com/partners/join/"><img height="100" width="380" src="https://cloud.google.com/_static/30ed6e856d/images/cloud/gcp-logo.svg" /></a>
+<BR>
+Plant OS is powered by Google Cloud Platform
 
 
