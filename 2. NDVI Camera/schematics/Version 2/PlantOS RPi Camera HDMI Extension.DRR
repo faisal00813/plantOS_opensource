@@ -1,0 +1,19 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: PlantOS RPi Camera HDMI Extension.PcbDoc   5/20/2017  4:54:54 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : PlantOS RPi Camera HDMI Extension-RoundHoles.TXT
+ASCII SlotHoles File : PlantOS RPi Camera HDMI Extension-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      12mil (0.301mm)                                           Round             22        PTH        1.61inch (40.97mm)
+T2      32mil (0.8mm)                                             Slot              4         PTH        2.30inch (58.43mm)
+T3      35mil (0.9mm)                                             Round             3         PTH        0.20inch (5.08mm)
+T4      79mil (2mm)                                               Round             4         PTH        2.15inch (54.50mm)
+T5      118mil (3mm)                                              Round             2         PTH        0.83inch (21.20mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              35
+
+Total Processing Time (hh:mm:ss) : 00:00:00

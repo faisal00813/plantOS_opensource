@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: Z:\Google Drive\Project\PlantOS\RPi Camera HDMI Extension\PlantOS RPi Camera HDMI Extension.PcbDoc
+LayersSetName=Top_Bot_Thru_Holes|DrillFile=plantos rpi camera hdmi extension-roundholes.txt|DrillLayers=gtl,gbl
+LayersSetName=Top_Bot_Slot_Holes|DrillFile=plantos rpi camera hdmi extension-slotholes.txt|DrillLayers=gtl,gbl
