@@ -36,8 +36,9 @@ The NDVI camera utilises inexpensive Raspberry Pi No Infrared camera with Sony I
 
 <img height="180" width="280" 
 src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/?format=500w" />
+
 <img height="180" width="280"
-https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448a36b8f5b325325c2b7/1499744437443/?format=500w" />
+src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448a36b8f5b325325c2b7/1499744437443/?format=500w" />
 <BR>
 3. Data Processing Engine
 
@@ -48,7 +49,7 @@ Data Processing Engine(DPE) receives streaming data from plantOS computers deplo
 App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with MIT Media Lab Open Agriculture Initiative (OpenAg).
 
 <img height="180" width="280" 
-https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/59644426ff7c5099c12c5864/1499743282386/?format=750w />
+src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/59644426ff7c5099c12c5864/1499743282386/?format=750w" />
 <BR>
 
 Partners
