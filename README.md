@@ -23,7 +23,7 @@ Plant-os Google Cloud Platform Processing Engine(DPE) receives streaming data fr
 
 Partners
 ============================
-<a href="https://www.media.mit.edu/groups/open-agriculture-openag/overview/"><img height="100" width="320" src="https://cdn-business.discourse.org/uploads/mit/original/1X/47f2561abc542873e69b72315981cb3b31e0f6c5.png" /></a>
+<a href="https://www.media.mit.edu/groups/open-agriculture-openag/overview/"><img height="100" width="380" src="https://cdn-business.discourse.org/uploads/mit/original/1X/47f2561abc542873e69b72315981cb3b31e0f6c5.png" /></a>
 <BR>
 MIT Media Lab Open Agriculture Initiative (OpenAg)
 
