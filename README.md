@@ -12,8 +12,10 @@ Digitizing Agriculture
 2. NDVI Camera
 2. Data Processing Engine
 3. App Engine Analytics
-
-1. Computer:
+<BR>
+1. Computer
+<img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596446e159cc684e82642d3e/1499744013803/image+%281%29.png?format=500w" />
+<BR>
 Our Plant OS computer comprises of a Raspberry Pi 3 Model B and a Plant OS Shield designed with signal isolation and robust number of digital pins to support sensors integrated:
 <ul style="list-style-type:circle">
 <li>Ambient Temperature</li>
@@ -26,10 +28,8 @@ Our Plant OS computer comprises of a Raspberry Pi 3 Model B and a Plant OS Shiel
 <li>Soluble Temperature</li>
 <li>Light Intensity</li>
 </ul>
-<BR>
 Plant OS Computer Image
-<img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596446e159cc684e82642d3e/1499744013803/image+%281%29.png?format=500w" />
-<BR>
+
 
 2. NDVI Camera
 <img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/?format=500w" />
