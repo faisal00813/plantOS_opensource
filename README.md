@@ -9,8 +9,8 @@ Digitizing Agriculture
 <u>Plant OS Components</u>
 1. Computer
 2. NDVI Camera
-2. Data Processing Engine
-3. App Engine Analytics
+3. Data Processing Engine
+4. App Engine Analytics
 <BR>
 1. Computer
 <img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596446e159cc684e82642d3e/1499744013803/image+%281%29.png?format=500w" />
@@ -32,10 +32,24 @@ Our Plant OS computer comprises of a Raspberry Pi 3 Model B and a Plant OS Shiel
 <img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/?format=500w" />
 <BR>
 
-2.Plant-os GCP Data Processing Engine (DPE):
+The NDVI camera utilises inexpensive Raspberry Pi No Infrared camera with Sony IMX219 8-megapixel sensor to generate visual analytics including NDVI and plant phenotype analysis with our own object detection. We have developed our own chip to convert video data over conventional HDMI to extend range.
 
-Plant-os Google Cloud Platform Processing Engine(DPE) receives streaming data from multiple devices and process it through pipelines. Real-Time streaming data runs through the various processing jobs and generates Analytics data,that describes the insights on plant growth. DPE extensively uses Google Cloud Components such as Google Pub/Sub, Dataflow Engine, BigQuery and Google App Engine, to process the data inorder generate timely insights which would be helpful for monitering various factors related to plant growth.
+<img height="180" width="280" 
+src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/?format=500w" />
+<img height="180" width="280"
+https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448a36b8f5b325325c2b7/1499744437443/?format=500w" />
+<BR>
+3. Data Processing Engine
 
+Data Processing Engine(DPE) receives streaming data from plantOS computers deployed and processes it through pipelines. Real-Time streaming data runs through the various processing jobs and generates data that is analysed to gain insights on plant growth. DPE is build on Google Cloud Components such as Google Pub/Sub, Dataflow Engine, BigQuery and Google App Engine, to process the data inorder generate timely insights which would be helpful for monitering various factors related to plant growth.
+
+4. App Engine Analytics
+
+App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with MIT Media Lab Open Agriculture Initiative (OpenAg).
+
+<img height="180" width="280" 
+https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/59644426ff7c5099c12c5864/1499743282386/?format=750w />
+<BR>
 
 Partners
 ============================
