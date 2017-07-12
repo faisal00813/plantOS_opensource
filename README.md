@@ -7,12 +7,11 @@ Digitizing Agriculture
 <BR>
 
 <u>Plant OS Components</u>
-
 1. Computer
 2. NDVI Camera
 2. Data Processing Engine
 3. App Engine Analytics
-<BR>
+
 1. Computer
 <img height="180" width="280" src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596446e159cc684e82642d3e/1499744013803/image+%281%29.png?format=500w" />
 <BR>
