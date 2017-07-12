@@ -34,9 +34,6 @@ Our Plant OS computer comprises of a Raspberry Pi 3 Model B and a Plant OS Shiel
 
 The NDVI camera utilises inexpensive Raspberry Pi No Infrared camera with Sony IMX219 8-megapixel sensor to generate visual analytics including NDVI and plant phenotype analysis with our own object detection. We have developed our own chip to convert video data over conventional HDMI to extend range.
 
-<img height="180" width="280" 
-src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448c2e4fcb58b9fb00881/1499744476763/?format=500w" />
-
 <img height="180" width="280"
 src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/596448a36b8f5b325325c2b7/1499744437443/?format=500w" />
 <BR>
