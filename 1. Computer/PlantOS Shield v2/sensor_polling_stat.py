@@ -212,9 +212,9 @@ def main():
                         temp = device.query("R")
                         print(temp)
                         stat_temporary = None
-                        stat_temporary = numpy.append(stat_atlas_ph, float(string.split(temp, ": ")[1]))    #local statistic
+                        stat_temporary = float(string.split(temp, ": ")[1])
                         if stat_temporary is not None:
-                            stat_atlas_ph = stat_temporary
+                            stat_atlas_ph = numpy.append(stat_atlas_ph, stat_temporary) #local statistic
                         else:
                             stat_atlas_ph = numpy.median(stat_atlas_ph)
                         device.set_i2c_address(100) # (100 EC)
@@ -222,30 +222,30 @@ def main():
                         print(temp)
                         temp1 = string.split(temp, ": ")[1] #get EC
                         stat_temporary = None
-                        stat_temporary = numpy.append(stat_atlas_ec, float(string.split(temp1, "\n")[0])) #local statistic
+                        stat_temporary = float(string.split(temp1, "\n")[0])
                         if stat_temporary is not None:
-                            stat_atlas_ec = stat_temporary
+                            stat_atlas_ec = numpy.append(stat_atlas_ec, stat_temporary) #local statistic
                         else:
                             stat_atlas_ec = numpy.median(stat_atlas_ec)
                         temp1 = string.split(temp, ": ")[2] #get TDS
                         stat_temporary = None
-                        stat_temporary = numpy.append(stat_atlas_tds, float(string.split(temp1, "\n")[0])) #local statistic
+                        stat_temporary = float(string.split(temp1, "\n")[0])
                         if stat_temporary is not None:
-                            stat_atlas_tds = stat_temporary
+                            stat_atlas_tds = numpy.append(stat_atlas_tds, stat_temporary) #local statistic
                         else:
                             stat_atlas_tds = numpy.median(stat_atlas_tds)
                         temp1 = string.split(temp, ": ")[3] #get Salinity
                         stat_temporary = None
-                        stat_temporary = numpy.append(stat_atlas_sal, float(string.split(temp1, "\n")[0])) #local statistic
+                        stat_temporary = float(string.split(temp1, "\n")[0])
                         if stat_temporary is not None:
-                            stat_atlas_sal = stat_temporary
+                            stat_atlas_sal = numpy.append(stat_atlas_sal, stat_temporary) #local statistic
                         else:
                             stat_atlas_sal = numpy.median(stat_atlas_sal)
                         temp1 = string.split(temp, ": ")[4] #get Gravity
                         stat_temporary = None
-                        stat_temporary = numpy.append(stat_atlas_gra, float(string.split(temp1, "\n")[0])) #local statistic
+                        stat_temporary = float(string.split(temp1, "\n")[0])
                         if stat_temporary is not None:
-                            stat_atlas_gra = stat_temporary
+                            stat_atlas_gra = numpy.append(stat_atlas_gra, stat_temporary) #local statistic
                         else:
                             stat_atlas_gra = numpy.median(stat_atlas_gra)
                         device.set_i2c_address(102) # (102 RTD)
@@ -253,15 +253,16 @@ def main():
                         print(temp)
                         temp = string.split(temp, ": ")[1]
                         stat_temporary = None
-                        stat_temporary = numpy.append(stat_atlas_rtd, float(string.split(temp, " C")[0])) #local statistic
+                        stat_temporary = float(string.split(temp, " C")[0])
                         if stat_temporary is not None:
-                            stat_atlas_rtd = stat_temporary
+                            stat_atlas_rtd = numpy.append(stat_atlas_rtd, stat_temporary) #local statistic
                         else:
                             stat_atlas_rtd = numpy.median(stat_atlas_rtd)
                         temp = str(device1.readLight()) # BH1750
                         print 'Light Intensity: ' + temp + ' lx'
+                        temp = float(temp)
                         if temp is not None:
-                            stat_bh1750_lux = numpy.append(stat_bh1750_lux, float(str(device1.readLight()))) #local statistic
+                            stat_bh1750_lux = numpy.append(stat_bh1750_lux, temp) #local statistic
                         else:
                             stat_bh1750_lux = numpy.median(stat_bh1750_lux)
                         # local statistic routine
