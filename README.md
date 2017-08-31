@@ -48,7 +48,8 @@ src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/59644426f
 <BR>
 
 App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with OpenAg.
-
+<BR>
+<BR>
 <a href="https://www.media.mit.edu/groups/open-agriculture-openag/overview/"><img height="100" width="380" src="https://cdn-business.discourse.org/uploads/mit/original/1X/47f2561abc542873e69b72315981cb3b31e0f6c5.png" /></a>
 <BR>
 Plant OS is compatible with OpenAg hardware
