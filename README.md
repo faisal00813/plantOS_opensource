@@ -47,13 +47,11 @@ Data Processing Engine(DPE) receives streaming data from plantOS computers deplo
 src="https://static1.squarespace.com/static/56dc4a48ab48defc35729f22/t/59644426ff7c5099c12c5864/1499743282386/?format=750w" />
 <BR>
 
-App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with MIT Media Lab Open Agriculture Initiative (OpenAg).
+App Engine Analytics is a unified interface for beginers exploring their plants with real time analytics and for plant scientists to optimize algorithms through a Jupyter notebook configured with plant phenotics and digital plant recipes in collaboration with OpenAg.
 
-Partners
-============================
 <a href="https://www.media.mit.edu/groups/open-agriculture-openag/overview/"><img height="100" width="380" src="https://cdn-business.discourse.org/uploads/mit/original/1X/47f2561abc542873e69b72315981cb3b31e0f6c5.png" /></a>
 <BR>
-MIT Media Lab Open Agriculture Initiative (OpenAg)
+Plant OS is compatible with OpenAg hardware
 <BR>
 <a href="https://cloud.google.com"><img height="100" width="380" src="https://cloud.google.com/_static/30ed6e856d/images/cloud/gcp-logo.svg" /></a>
 <BR>
